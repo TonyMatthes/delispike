@@ -26,9 +26,6 @@ const Nav = (props) => (
           <Link className="nav-link" to="/menu">
             Menu
           </Link>
-          {props.order &&(<Link className="nav-link" to="/currentorder">
-            Current Order
-          </Link>)}
           <LogOutButton className="nav-link"/>
         </>
       )}
@@ -37,7 +34,7 @@ const Nav = (props) => (
         About
       </Link>
     </div>
-    <SubTotalBar />
+    {props.order.orderItems.orders.length >= 1 &&(<SubTotalBar />)}
   </div>
 );
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -22,8 +22,8 @@ import './App.css';
 import CurrentOrder from '../CurrentOrder/CurrentOrder';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
@@ -59,21 +59,27 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/Menu"
+              path="/menu"
               component={MenuPage}
             />
-            <ProtectedRoute
-              exact
-              path="/currentorder"
-              component={CurrentOrder}
-            />
+            {/* The current order page will only be available if there are items in the order, if all items are
+            removed, then the user will be redirected to the menu page */}
+            {this.props.order.orderItems.orders.length >= 1 ?
+              <Route
+                exact
+                path="/currentorder"
+                component={CurrentOrder}
+              /> : <Redirect exact from="/currentorder" to="/menu" />}
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
           <Footer />
         </div>
       </Router>
-  )}
+    )
+  }
 }
 
-export default connect()(App);
+const mapReduxStateToProps = ({ order }) => ({ order })
+
+export default connect(mapReduxStateToProps)(App);
