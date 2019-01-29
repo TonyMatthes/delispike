@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
-const orderItems = (state = [], action) => {
+const orderItems = (state = {key:0, orders:[]}, action) => {
+
     switch (action.type) {
         case 'ADD_ORDER_ITEM':
-            return [...state, { ...action.payload}];
+            return {key:state.key + 1, orders:[ ...state.orders, action.payload]};
         case 'REMOVE_ORDER_ITEM':
-            return state.filter(item => action.payload !== item.id);
+            return {...state, orders: state.orders.filter(item => action.payload.orderSpecificId !== item.orderSpecificId)};
         case 'CLEAR_REDUCERS':
             return state = [];
         default:

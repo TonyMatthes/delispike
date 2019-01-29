@@ -25,6 +25,9 @@ const Nav = (props) => (
           <Link className="nav-link" to="/menu">
             Menu
           </Link>
+          {props.order &&(<Link className="nav-link" to="/currentorder">
+            Current Order
+          </Link>)}
           <LogOutButton className="nav-link"/>
         </>
       )}
@@ -43,6 +46,7 @@ const Nav = (props) => (
 // const mapStateToProps = ({ user }) => ({ user });
 const mapStateToProps = state => ({
   user: state.user,
+  order: state.order,
 });
 
 export default connect(mapStateToProps)(Nav);
