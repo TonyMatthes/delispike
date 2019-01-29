@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import MenuPage from '../MenuPage/MenuPage';
 
 import './App.css';
+import CurrentOrder from '../CurrentOrder/CurrentOrder';
 
 class App extends Component {
   componentDidMount () {
@@ -60,6 +61,11 @@ class App extends Component {
               exact
               path="/Menu"
               component={MenuPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/currentorder"
+              component={CurrentOrder}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
