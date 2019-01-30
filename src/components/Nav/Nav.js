@@ -8,7 +8,7 @@ import './Nav.css';
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
-      <h2 className="nav-title">Prime Solo Project</h2>
+      <h2 className="nav-title">Marino's Spike</h2>
     </Link>
     <div className="nav-right">
       <Link className="nav-link" to="/home">
@@ -26,15 +26,15 @@ const Nav = (props) => (
           <Link className="nav-link" to="/menu">
             Menu
           </Link>
-          <LogOutButton className="nav-link"/>
+          <LogOutButton className="nav-link" />
         </>
       )}
       {/* Always show this link since the about page is not protected */}
       <Link className="nav-link" to="/about">
         About
       </Link>
+      {props.order.orderItems.orders.length >= 1 && (<SubTotalBar />)}
     </div>
-    {props.order.orderItems.orders.length >= 1 &&(<SubTotalBar />)}
   </div>
 );
 
