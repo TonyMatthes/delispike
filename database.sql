@@ -23,6 +23,36 @@ CREATE TABLE "add_ons" (
     "price" numeric(6,2)
 );
 
+CREATE TABLE "public"."customer_info" (
+    "id" serial,
+    "person_id" integer,
+    "first_name" varchar NOT NULL,
+    "last_name" varchar NOT NULL,
+    "phone_number_primary" int NOT NULL,
+    "phone number_secondary" int,
+    "address_number" varchar NOT NULL,
+    "unit_number" varchar,
+    "street" varchar NOT NULL,
+    "city" varchar NOT NULL,
+    "state" varchar NOT NULL,
+    "zip_code" int NOT NULL,
+    "email_address" varchar NOT NULL,
+    PRIMARY KEY ("id"),
+    FOREIGN KEY ("person_id") REFERENCES "public"."person"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE "public"."orders" (
+    "id" serial,
+    "customer_id" INT,
+    "time_ordered" TIMESTAMP NOT NULL DEFAULT now(),
+    "order_items" VARCHAR[] NOT NULL,
+    "time_fulfilled" TIMESTAMP,
+    "notes" text,
+    PRIMARY KEY ("id"),
+    FOREIGN KEY ("customer_id") REFERENCES "public"."customer_info"("id")
+);
+
+
 INSERT INTO "categories"("id","category")
 VALUES
 (1,'Marino’s Specialty Sandwiches'),
