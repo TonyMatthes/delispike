@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MenuItem from '../MenuItem/MenuItem';
 
 class CurrentOrder extends Component {
 

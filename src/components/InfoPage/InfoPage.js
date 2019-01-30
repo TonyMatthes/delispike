@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomerInfoInput from '../CustomerInfoInput/CustomerInfoInput'
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -7,9 +8,8 @@ import React from 'react';
 
 const InfoPage = () => (
   <div>
-    <p>
-      Info Page
-    </p>
+    <h2>edit customer info here</h2>
+<CustomerInfoInput />
   </div>
 );
 
