@@ -45,7 +45,7 @@ CREATE TABLE "public"."orders" (
     "id" serial,
     "customer_id" INT,
     "time_ordered" TIMESTAMP NOT NULL DEFAULT now(),
-    "order_items" VARCHAR[] NOT NULL,
+    "order_items" INT[] NOT NULL,
     "time_fulfilled" TIMESTAMP,
     "notes" text,
     PRIMARY KEY ("id"),

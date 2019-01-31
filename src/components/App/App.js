@@ -17,9 +17,10 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import MenuPage from '../MenuPage/MenuPage';
+import CurrentOrderPage from '../CurrentOrder/CurrentOrder';
+import ConfirmOrderPage from '../ConfirmOrderPage/ConfirmOrderPage'
 
 import './App.css';
-import CurrentOrder from '../CurrentOrder/CurrentOrder';
 
 class App extends Component {
   componentDidMount() {
@@ -65,11 +66,16 @@ class App extends Component {
             {/* The current order page will only be available if there are items in the order, if all items are
             removed, then the user will be redirected to the menu page */}
             {this.props.order.orderItems.orders.length >= 1 ?
-              <Route
+              <ProtectedRoute
                 exact
                 path="/currentorder"
-                component={CurrentOrder}
+                component={CurrentOrderPage}
               /> : <Redirect exact from="/currentorder" to="/menu" />}
+              <ProtectedRoute
+                exact
+                path="/confirm"
+                component={ConfirmOrderPage}
+              /> : <Redirect exact from="/confirm" to="/menu" />}
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>

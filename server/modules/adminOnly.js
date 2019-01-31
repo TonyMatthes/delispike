@@ -11,7 +11,7 @@ const adminOnly = (req, res, next) => {
         }
     })
     .catch(err => {
-        console.log('Error checking facilitator status', err);
+        console.log('Error checking admin status', err);
     })
 
 };

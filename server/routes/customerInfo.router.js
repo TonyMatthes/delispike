@@ -6,7 +6,7 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT * FROM "customer_info"`)
     .then((results) => {
         res.send(results.rows)
