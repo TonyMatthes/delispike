@@ -8,7 +8,7 @@ const orderItems = (state = {key:0, orders:[]}, action) => {
         case 'REMOVE_ORDER_ITEM':
             return {...state, orders: state.orders.filter(item => action.payload.orderSpecificId !== item.orderSpecificId)};
         case 'CLEAR_REDUCERS':
-            return state = [];
+            return state = {key:0, orders:[]};
         default:
             return state;
     }
