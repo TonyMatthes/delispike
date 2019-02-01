@@ -23,7 +23,7 @@ class OrderViewer extends Component {
           </thead>
           <tbody>
             {this.props.orders ? this.props.orders.map((order) =>
-              <tr>
+              <tr key={order.id}>
                 <td>{order.customer_id}</td>
                 <td>{order.time_ordered}</td>
                 <td>{order.order_items}</td>

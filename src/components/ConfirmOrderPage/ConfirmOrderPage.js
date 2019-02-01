@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import subtotalCalulator from '../SubtotalBar/subtotalCalculator'
 
 class CurrentOrder extends Component {
 
@@ -20,16 +21,10 @@ class CurrentOrder extends Component {
         {this.props.state.order.orderItems.orders.map(item => (
           <h4>{item.item} --- ${item.price}</h4>
         ))}
-        <h5>Subtotal: ${this.props.state.order.orderItems.orders.map(item => (Number(item.price))
-        ).reduce((accumulator, currentValue) => accumulator + currentValue
-        ).toFixed(2)}</h5>
-        <h5>Tax: {((this.props.state.order.orderItems.orders.map(item => (Number(item.price))
-        ).reduce((accumulator, currentValue) => accumulator + currentValue
-        ).toFixed(2)) * .08025).toFixed(2)}</h5>
+        <h5>Subtotal: ${subtotalCalulator(this.props.state.order.orderItems.orders)}</h5>
+        <h5>Tax: {(subtotalCalulator(this.props.state.order.orderItems.orders) * .08025).toFixed(2)}</h5>
         <br />
-        <h3>Total {((this.props.state.order.orderItems.orders.map(item => (Number(item.price))
-        ).reduce((accumulator, currentValue) => accumulator + currentValue
-        ).toFixed(2)) * 1.08025).toFixed(2)}</h3>
+        <h3>Total {(subtotalCalulator(this.props.state.order.orderItems.orders) * 1.08025).toFixed(2)}</h3>
         <br />
         <label htmlFor="notes">Any notes for us?: </label>
         <textarea name="notes" value={this.state.notes} onChange={this.handleChangeFor('notes')} />
