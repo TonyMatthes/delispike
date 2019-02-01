@@ -14,6 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
+import AdminPage from '../AdminPage/AdminPage'
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import MenuPage from '../MenuPage/MenuPage';
@@ -60,6 +61,11 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
+              path="/admin"
+              component={AdminPage}
+            />
+            <ProtectedRoute
+              exact
               path="/menu"
               component={MenuPage}
             />
@@ -71,11 +77,11 @@ class App extends Component {
                 path="/currentorder"
                 component={CurrentOrderPage}
               /> : <Redirect exact from="/currentorder" to="/menu" />}
-              <ProtectedRoute
-                exact
-                path="/confirm"
-                component={ConfirmOrderPage}
-              /> : <Redirect exact from="/confirm" to="/menu" />}
+            <ProtectedRoute
+              exact
+              path="/confirm"
+              component={ConfirmOrderPage}
+            /> : <Redirect exact from="/confirm" to="/menu" />}
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>

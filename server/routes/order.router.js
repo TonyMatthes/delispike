@@ -61,16 +61,17 @@ router.delete('/:id', rejectUnauthenticated, adminOnly, (req, res) => {
 });
 
 // PUT to mark an order as complete
-router.put('/', rejectUnauthenticated, adminOnly, (req, res) => {
-    pool.query(`UPDATE card
-    SET "time_fulfilled" = now()
+router.put('/:id', rejectUnauthenticated, adminOnly, (req, res) => {
+    console.log (req.params)
+    pool.query(`UPDATE "orders"
+    SET "time_fulfilled" = now(), "complete"= NOT "complete"
     WHERE "id" = $1`,
-        [req.body.id])
+        [req.params.id])
         .then((results) => {
-            res.send(200)
+            res.sendStatus(200)
         }).catch((error) => {
             console.log('Card PUT error: ', error);
-            res.send(500);
+            res.sendStatus(500);
         })
 })
 

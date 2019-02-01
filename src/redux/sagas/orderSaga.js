@@ -30,7 +30,7 @@ function* addOrder(action) {
 }
 function* editOrder(action) {
     try {
-        yield axios.put('api/order', action.payload)
+        yield axios.put(`api/order/${action.payload}`)
         yield put({ type: 'FETCH_ORDERS' });
     } catch (error) {
         console.log('Error updating order: ', error)
