@@ -14,6 +14,16 @@ const orderItems = (state = {key:0, orders:[]}, action) => {
     }
 }
 
+const orderViewer = (state = [], action) => {
+
+    switch (action.type) {
+        case 'SET_ORDERS':
+            return  action.payload;
+        default:
+            return state;
+    }
+}
+
 const customer = (state = {}, action) => {
     switch (action.type) {
         case 'FORMAT_CUSTOMER':
@@ -26,6 +36,7 @@ const customer = (state = {}, action) => {
 }
 
 export default combineReducers({
+    orderViewer,
     orderItems,
     customer,
 });
