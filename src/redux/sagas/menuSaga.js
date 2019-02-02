@@ -21,7 +21,7 @@ function* fetchItems(action) {
 
 function* addItem(action) {
     try {
-        yield axios.post('api/item', action.payload)
+        yield axios.post('api/menu', action.payload)
         yield put({ type: 'FETCH_ITEMS' });
     } catch (error) {
         console.log('Error adding item: ', error)
@@ -29,7 +29,7 @@ function* addItem(action) {
 }
 function* editItem(action) {
     try {
-        yield axios.put('api/item', action.payload)
+        yield axios.put('api/menu', action.payload)
         yield put({ type: 'FETCH_ITEMS' });
     } catch (error) {
         console.log('Error updating item: ', error)
