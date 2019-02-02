@@ -48,8 +48,9 @@ CREATE TABLE "public"."orders" (
     "order_items" INT[] NOT NULL,
     "time_fulfilled" TIMESTAMP,
     "notes" text,
+    "complete" BOOLEAN,
     PRIMARY KEY ("id"),
-    FOREIGN KEY ("customer_id") REFERENCES "public"."customer_info"("id")
+    FOREIGN KEY ("customer_id") REFERENCES "person"."id"
 );
 
 

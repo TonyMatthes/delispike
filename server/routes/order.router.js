@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // GET all orders
 router.get('/', rejectUnauthenticated, adminOnly, (req, res) => {
-    console.log('get all cards');
+    console.log('get all orders');
     pool.query(`
     SELECT * FROM "orders"`)
         .then((results) => {
@@ -18,7 +18,7 @@ router.get('/', rejectUnauthenticated, adminOnly, (req, res) => {
         })
 });
 router.get('/:id', rejectUnauthenticated, adminOnly, (req, res) => {
-    console.log('get card');
+    console.log('get order');
     pool.query(`
     SELECT * FROM "orders"
     WHERE "id" = $1`, [req.params.id])
@@ -31,7 +31,7 @@ router.get('/:id', rejectUnauthenticated, adminOnly, (req, res) => {
 });
 
 
-// POST for adding a new question to the card table in the database
+// POST for adding a new order in the database
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log(req.user)
     pool.query(`INSERT INTO "orders"("customer_id", "order_items", "notes") VALUES($1, $2, $3)`,
@@ -47,7 +47,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 
-// DELETE question from card database
+// DELETE an order from the database
 router.delete('/:id', rejectUnauthenticated, adminOnly, (req, res) => {
     pool.query(`DELETE FROM "orders"
                 WHERE "id"=$1;`,

@@ -16,8 +16,6 @@ class MenuItem extends Component {
       <div>
         <h4>{this.props.item.item + ' $' + this.props.item.price}</h4>
         <h5>{this.props.item.description}</h5>
-        {!this.props.editing ? <button onClick={this.addItemToOrder(this.props.item)}> Add to Order</button> : 
-        <button onClick={this.removeItemFromOrder(this.props.item)}>Remove</button>}
       </div>
     );
   }
