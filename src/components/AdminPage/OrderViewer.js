@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment'
 // import { Link } from 'react-router-dom';
+import MenuItem from '../MenuItem/MenuItem'
 class OrderViewer extends Component {
 
   state = {}
@@ -11,7 +13,7 @@ class OrderViewer extends Component {
     return (
       <div>
         <h2>this is the admin page</h2>
-        <table>
+        <table style={{border: '1px solid black'}}>
           <thead>
             <tr>
               <th>order for:</th>
@@ -23,13 +25,13 @@ class OrderViewer extends Component {
           </thead>
           <tbody>
             {this.props.orders ? this.props.orders.map((order) =>
-              <tr key={order.id}>
-                <td>{order.customer_id}</td>
-                <td>{order.time_ordered}</td>
-                <td>{order.order_items}</td>
-                <td>{order.notes}</td>
-                <td>
-                  {order.time_fulfilled ? order.time_fulfilled :
+              <tr style={{border: '1px solid black'}} key={order.id}>
+                <td style={{border: '1px solid black'}}>{order.first_name} {order.last_name}</td>
+                <td style={{border: '1px solid black'}}>{moment(order.time_ordered).format('MMMM Do YYYY, h:mm a')}</td>
+                <td style={{border: '1px solid black'}}>{order.order_items.map(thing => <p>{this.props.state.menu.filter(entree=> entree.id === thing)[0].item}, </p>)}</td>
+                <td style={{border: '1px solid black'}}>{order.notes}</td>
+                <td style={{border: '1px solid black'}}>
+                  {order.time_fulfilled ? moment(order.time_fulfilled).format('MMMM Do YYYY, h:mm a') :
                     <button onClick={()=>this.props.dispatch({type:'EDIT_ORDER', payload: order.id})}>mark order as complete</button>}
                 </td>
               </tr>) :

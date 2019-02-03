@@ -9,7 +9,17 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/', rejectUnauthenticated, adminOnly, (req, res) => {
     console.log('get all orders');
     pool.query(`
-    SELECT * FROM "orders"`)
+    SELECT "orders"."time_ordered", 
+    "orders"."customer_id", 
+    "orders"."id", 
+    "orders"."complete", 
+    "orders"."notes", 
+    "orders"."order_items",
+    "orders"."time_fulfilled",
+    "customer_info"."first_name",
+    "customer_info"."last_name"
+    FROM "orders"
+    LEFT JOIN "customer_info" ON "customer_info"."person_id" = "orders"."customer_id";`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
@@ -62,7 +72,7 @@ router.delete('/:id', rejectUnauthenticated, adminOnly, (req, res) => {
 
 // PUT to mark an order as complete
 router.put('/:id', rejectUnauthenticated, adminOnly, (req, res) => {
-    console.log (req.params)
+    console.log(req.params)
     pool.query(`UPDATE "orders"
     SET "time_fulfilled" = now(), "complete"= NOT "complete"
     WHERE "id" = $1`,
