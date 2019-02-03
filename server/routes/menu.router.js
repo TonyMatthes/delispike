@@ -8,7 +8,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  * GET route template
  */
 router.get('/', (req, res) => {
-    pool.query(`SELECT * FROM "dining_menu"`)
+    pool.query(`SELECT * FROM "dining_menu"
+                ORDER BY "id"`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {
@@ -20,7 +21,7 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, adminOnly, (req, res) => {
     pool.query(`INSERT INTO "dining_menu"("item", "description", "category", "price") 
                 VALUES($1, $2, $3, $4)`,
         [req.body.item, req.body.description, req.body.category, req.body.price])
