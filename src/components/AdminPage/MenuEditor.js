@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Grid} from '@material-ui/core'
 import MenuEditorItem from './MenuEditorItem';
 
 class MenuEditor extends Component {
@@ -17,12 +18,18 @@ class MenuEditor extends Component {
     return (
       <div>
         <MenuEditorItem />
+        <Grid container
+        spacing={32}
+        direction="row"
+        justify="center"
+        alignItems="flex-start"
+      >
         {this.props.state.menu.map(item => (
-          <div>
-            
-            <MenuEditorItem editing={true} key={item.id} item={item} />
-          </div>
+            <Grid key={item.id} item>
+            <MenuEditorItem editing={true}  item={item} />
+            </Grid>
         ))}
+        </Grid>
       </div>
     );
   }

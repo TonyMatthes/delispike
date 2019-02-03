@@ -16,8 +16,7 @@ class CurrentOrder extends Component {
         {/* <pre>{JSON.stringify(this.state.order, null, 2)}</pre> */}
         {this.props.state.order.orderItems.orders.map(item => (
           <div>
-          <MenuItem key={item.orderSpecificId} editing={true} item={item} />
-          <button onClick={this.removeItemFromOrder(item)}>Remove</button>
+            <MenuItem item={item} buttonAction={this.removeItemFromOrder} buttonText="Remove"/>
           </div>
         ))}
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MenuItem from '../MenuItem/MenuItem';
+import Grid from '@material-ui/core/Grid'
 
 class MenuSelect extends Component {
 
@@ -19,14 +20,18 @@ class MenuSelect extends Component {
 
   render() {
     return (
-      <div>
+      <Grid container
+        spacing={32}
+        direction="row"
+        justify="center"
+        alignItems="flex-start"
+      >
         {this.props.state.menu.map(item => (
-          <div>
-            <MenuItem key={item.id} item={item} />
-            <button onClick={this.addItemToOrder(item)}> Add to Order</button>
-          </div>
+          <Grid item key={item.id}>
+            <MenuItem item={item} buttonAction={this.addItemToOrder} buttonText="Add to Order"/>
+          </Grid>
         ))}
-      </div>
+      </Grid>
     );
   }
 }

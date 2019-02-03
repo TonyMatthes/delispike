@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+}
+  from '@material-ui/core'
 import MenuItem from '../MenuItem/MenuItem'
 class MenuEditorItem extends Component {
 
@@ -39,6 +46,8 @@ class MenuEditorItem extends Component {
     })
   }
 
+  enableEditing = () => () => this.setState({ editing: true })
+
   handleSubmit = (event) => {
     event.preventDefault()
     if (this.props.editing) {
@@ -60,6 +69,7 @@ class MenuEditorItem extends Component {
       })
     }
   }
+
   handleDelete = (event) => {
     event.preventDefault()
     this.props.dispatch({ type: 'DELETE_ITEM', payload: this.state.newContent.id })
@@ -67,27 +77,42 @@ class MenuEditorItem extends Component {
 
 
   render() {
+    const styles = {
+      card: {
+        width: '24vw'
+      },
+      media: {
+        height: '300px',
+        width: '100%'
+      },
+    };
     return (
       <div>
         {!this.state.editing ?
-          <div>
-            <MenuItem key={this.props.item.id} item={this.props.item} />
-            <button onClick={() => this.setState({ editing: true })}>Edit</button>
-          </div> :
-          <form>
-            <label htmlFor="name">name:</label>
-            <input name="name" value={this.state.newContent.item} onChange={this.handleChangeFor('item')} />
-            <br/>
-            <label htmlFor="description">description:</label>
-            <textarea name="description" value={this.state.newContent.description} onChange={this.handleChangeFor('description')} />
-            <br/>
-            <label htmlFor="price">price:</label>
-            <input name="price" value={this.state.newContent.price} onChange={this.handleChangeFor('price')} />
-            {this.props.editing && (<><button onClick={() => this.setState({ editing: false })}>Cancel Editing</button>
-              <button onClick={this.handleDelete}>Delete</button></>)
-            }
-            <button onClick={this.handleSubmit}>Submit</button>
-          </form>}
+          <MenuItem buttonAction={this.enableEditing} buttonText="edit" item={this.props.item} />
+          :
+          <Card style={styles.card}>
+            <CardContent>
+              <form>
+                <label htmlFor="name">name:</label>
+                <input name="name" value={this.state.newContent.item} onChange={this.handleChangeFor('item')} />
+                <br />
+                <label htmlFor="description">description:</label>
+                <textarea name="description" value={this.state.newContent.description} onChange={this.handleChangeFor('description')} />
+                <br />
+                <label htmlFor="price">price:</label>
+                <input name="price" value={this.state.newContent.price} onChange={this.handleChangeFor('price')} />
+
+              </form>
+            </CardContent>
+            <CardActions>
+              <Button onClick={this.handleSubmit}>Submit</Button>
+            {this.props.editing && (<><Button onClick={() => this.setState({ editing: false })}>Cancel</Button>
+                  <Button onClick={this.handleDelete}>Delete</Button></>)
+                }
+                
+          </CardActions>
+          </Card>}
       </div>
     );
   }
