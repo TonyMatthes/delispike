@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  List,
+}
+  from '@material-ui/core'
 import MenuItem from '../MenuItem/MenuItem';
 
 class MenuSelect extends Component {
@@ -19,14 +23,11 @@ class MenuSelect extends Component {
 
   render() {
     return (
-      <div>
+      <List>
         {this.props.state.menu.map(item => (
-          <div>
-            <MenuItem key={item.id} item={item} />
-            <button onClick={this.addItemToOrder(item)}> Add to Order</button>
-          </div>
+            <MenuItem key={item.id} icon='AddCircle' iconAction={this.addItemToOrder(item)} item={item} />
         ))}
-      </div>
+      </List>
     );
   }
 }

@@ -30,6 +30,9 @@ const Nav = (props) => (
         </>
       )}
       {/* Always show this link since the about page is not protected */}
+      {props.user.is_admin &&(
+        <Link className="nav-link" to="/admin">Admin</Link>
+      )}
       <Link className="nav-link" to="/about">
         About
       </Link>

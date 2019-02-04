@@ -19,7 +19,9 @@ router.get('/', rejectUnauthenticated, adminOnly, (req, res) => {
     "customer_info"."first_name",
     "customer_info"."last_name"
     FROM "orders"
-    LEFT JOIN "customer_info" ON "customer_info"."person_id" = "orders"."customer_id";`)
+    LEFT JOIN "customer_info" ON "customer_info"."person_id" = "orders"."customer_id"
+    ORDER BY "orders"."time_ordered"
+    DESC;`)
         .then((results) => {
             res.send(results.rows)
         }).catch((error) => {

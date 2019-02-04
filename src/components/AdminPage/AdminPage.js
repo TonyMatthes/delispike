@@ -16,8 +16,8 @@ class AdminPage extends Component {
     return (
       <div>
         <h2>this is the admin page</h2>
-        <OrderViewer orders={this.props.state.order.orderViewer}/>
-        {/* <MenuEditor/> */}
+        {/* <OrderViewer orders={this.props.state.order.orderViewer}/> */}
+        <MenuEditor/>
       </div>
       
     );
