@@ -15,13 +15,14 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
 import AdminPage from '../AdminPage/AdminPage'
+import OrderViewer from '../AdminPage/OrderViewer'
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import MenuPage from '../MenuPage/MenuPage';
 import CurrentOrderPage from '../CurrentOrder/CurrentOrder';
 import ConfirmOrderPage from '../ConfirmOrderPage/ConfirmOrderPage'
 
-// import './App.css';
+import './App.css';
 
 class App extends Component {
   componentDidMount() {
@@ -59,11 +60,20 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
-            {this.props.user.is_admin &&(<ProtectedRoute
+            {this.props.user.is_admin &&(
+            <ProtectedRoute
               exact
               path="/admin"
               component={AdminPage}
-            />)}
+            />
+            )}
+            {this.props.user.is_admin &&(
+            <ProtectedRoute
+              exact
+              path="/orderviewer"
+              component={OrderViewer}
+            />
+            )}
             <Route
               exact
               path="/menu"

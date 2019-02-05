@@ -17,6 +17,7 @@ class MenuEditor extends Component {
 
   state = {
     editorOpen: false,
+    attemptingDelete: false,
     contentToEdit: {
       item: '',
       description: '',
@@ -44,7 +45,11 @@ class MenuEditor extends Component {
   };
 
   handleClose = () => {
-    this.setState({ editorOpen: false });
+    this.setState({
+      ...this.state,
+      editorOpen: false,
+      attemptingDelete: false
+    });
   };
 
   handleChangeFor = (input, type) => event => {
@@ -89,6 +94,7 @@ class MenuEditor extends Component {
     }
   }
 
+  confirmDelete = () => this.setState({ attemptingDelete: true })
 
   handleDelete = (event) => {
     event.preventDefault()
@@ -100,26 +106,26 @@ class MenuEditor extends Component {
     return (
 
       <>
-      <form>
-        <FormGroup>
-          <TextField
-            label="Name"
-            type="text"
-            value={this.state.newContent.item}
-            onChange={this.handleChangeFor('item', 'newContent')} />
-          <TextField
-            label="Description"
-            multiline
-            rowsMax="4"
-            value={this.state.newContent.description}
-            onChange={this.handleChangeFor('description', 'newContent')} />
-          <TextField
-            label="Price"
-            type="number"
-            value={this.state.newContent.price}
-            onChange={this.handleChangeFor('price', 'newContent')} />
-          <Button type="submit" onClick={this.handleSubmit('add')}>Submit</Button>
-        </FormGroup>
+        <form>
+          <FormGroup>
+            <TextField
+              label="Name"
+              type="text"
+              value={this.state.newContent.item}
+              onChange={this.handleChangeFor('item', 'newContent')} />
+            <TextField
+              label="Description"
+              multiline
+              rowsMax="4"
+              value={this.state.newContent.description}
+              onChange={this.handleChangeFor('description', 'newContent')} />
+            <TextField
+              label="Price"
+              type="number"
+              value={this.state.newContent.price}
+              onChange={this.handleChangeFor('price', 'newContent')} />
+            <Button type="submit" onClick={this.handleSubmit('add')}>Submit</Button>
+          </FormGroup>
         </form>
         <Dialog
           open={this.state.editorOpen}
@@ -127,9 +133,9 @@ class MenuEditor extends Component {
         >
           <DialogContent>
             <DialogContentText>
-              Edit {this.state.contentToEdit.item}
-        </DialogContentText>
-            <FormGroup>
+              {this.state.attemptingDelete ? 'Are you sure you want to delete ' : `Edit`} {this.state.contentToEdit.item}?
+            </DialogContentText>
+            {!this.state.attemptingDelete && (<FormGroup>
               <TextField
                 label="Name"
                 type="text"
@@ -146,12 +152,12 @@ class MenuEditor extends Component {
                 type="number"
                 value={this.state.contentToEdit.price}
                 onChange={this.handleChangeFor('price', 'contentToEdit')} />
-            </FormGroup>
+            </FormGroup>)}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose}>Cancel Editing</Button>
-            <Button onClick={this.handleDelete}>Delete</Button>
-            <Button onClick={this.handleSubmit('edit')}>Submit</Button>
+            <Button onClick={this.handleClose}>Cancel</Button>
+            <Button onClick={this.state.attemptingDelete ? this.handleDelete : this.confirmDelete}>Delete</Button>
+            {!this.state.attemptingDelete && (<Button onClick={this.handleSubmit('edit')}>Submit</Button>)}
           </DialogActions>
 
         </Dialog>

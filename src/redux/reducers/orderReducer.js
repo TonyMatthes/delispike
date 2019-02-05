@@ -14,7 +14,7 @@ const orderItems = (state = {key:0, orders:[]}, action) => {
     }
 }
 
-const orderViewer = (state = [], action) => {
+const orderViewer = (state = [{item:'loading', order_items:[1,1,1]}], action) => {
 
     switch (action.type) {
         case 'SET_ORDERS':
