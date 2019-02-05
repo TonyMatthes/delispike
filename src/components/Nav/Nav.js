@@ -56,7 +56,10 @@ const Nav = (props) => {
                  <NavButton color="inherit" path="/menu" name="menu"/>
             {/* Always show this link since the about menu is not protected */}
             {props.user.is_admin && (
+              <>
               <NavButton color="inherit" path="/admin" name="admin"/>
+              <NavButton color="inherit" path="/orderviewer" name="current orders"/>
+              </>
             )}
             {/* <NavButton path="/about" name="about"/> */}
             {props.order.orderItems.orders.length >= 1 && (<SubTotalBar />)}

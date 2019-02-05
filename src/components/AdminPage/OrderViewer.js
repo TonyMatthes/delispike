@@ -14,8 +14,10 @@ from '@material-ui/core'
 import MenuItem from '../MenuItem/MenuItem'
 class OrderViewer extends Component {
 
-  state = {}
-
+componentDidMount(){
+  this.props.dispatch({ type: 'FETCH_ORDERS'})
+  this.props.dispatch({ type: 'FETCH_ITEMS'})
+}
 
 
   render() {
@@ -33,18 +35,18 @@ class OrderViewer extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.orders ? this.props.orders.map((order) =>
+            {this.props.order ? this.props.order.orderViewer.map((order) =>
               <TableRow key={order.id}>
                 <TableCell>{order.first_name} {order.last_name}</TableCell>
                 <TableCell>{moment(order.time_ordered).format('MMMM Do YYYY, h:mm a')}</TableCell>
-                <TableCell>{order.order_items.map((thing, index) => <p key={index}>{this.props.state.menu.filter(entree=> entree.id === thing)[0].item}, </p>)}</TableCell>
+                <TableCell>{order.order_items.map((thing, index) => <p key={index}>{this.props.menu.filter(entree=> entree.id === thing)[0].item}, </p>)}</TableCell>
                 <TableCell>{order.notes}</TableCell>
                 <TableCell>
                   {order.time_fulfilled ? moment(order.time_fulfilled).format('MMMM Do YYYY, h:mm a') :
                     <Button color="secondary" onClick={()=>this.props.dispatch({type:'EDIT_ORDER', payload: order.id})}>mark order as complete</Button>}
                 </TableCell>
               </TableRow>) :
-              <tr></tr>
+              <p>no orders given to this component</p>
             }
           </TableBody>
         </Table>
@@ -52,8 +54,6 @@ class OrderViewer extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  state,
-});
+const mapStateToProps = ({order, menu}) => ({order, menu})
 
 export default connect(mapStateToProps)(OrderViewer);
