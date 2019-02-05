@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css'
+import { Typography } from '@material-ui/core';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -8,8 +9,13 @@ import './Footer.css'
 
 const Footer = () => (
   <footer>
-    &copy; Marino's Deli
-  </footer>
+
+<Typography allign="center" variant="overline">Marino's Deli
+1946 Johnson St. NE
+Minneapolis, MN 55418
+(612) 781-0970  
+</Typography>
+</footer>
 );
 
 export default Footer;

@@ -4,6 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import menu from './menuReducer';
 import order from './orderReducer';
+import sideBar from './orderReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   menu, //contains the menu
   order, //contains the user's current order
+  sideBar, //controls materialUI sidebar
 });
 
 export default rootReducer;

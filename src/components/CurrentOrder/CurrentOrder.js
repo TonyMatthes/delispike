@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { List, } from '@material-ui/core'
 
 import MenuItem from '../MenuItem/MenuItem';
+import NavButton from '../Nav/NavButton'
 class CurrentOrder extends Component {
 
   state = {}
@@ -21,7 +21,7 @@ class CurrentOrder extends Component {
             <MenuItem key={item.orderSpecificId} icon='RemoveCircle' iconAction={this.removeItemFromOrder(item)} item={item} />
           ))}
         </List>
-        <button><Link to="/confirm">Confirm Order</Link></button>
+        <NavButton path="/confirm" name="Confirm order"/>
       </>
     );
   }

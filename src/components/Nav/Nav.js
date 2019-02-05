@@ -1,46 +1,76 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
+
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Button,
+  withStyles,
+} from '@material-ui/core'
+
+import {
+  Menu,
+}
+  from '@material-ui/icons';
+
+import NavButton from './NavButton';
 import SubTotalBar from '../SubtotalBar/SubtotalBar';
-import './Nav.css';
+// import './Nav.css';
 
-const Nav = (props) => (
-  <div className="nav">
-    <Link to="/home">
-      <h2 className="nav-title">Marino's Spike</h2>
-    </Link>
-    <div className="nav-right">
-      <Link className="nav-link" to="/home">
-        {/* Show this link if they are logged in or not,
-        but call this link 'Home' if they are logged in,
-        and call this link 'Login / Register' if they are not */}
-        {props.user.id ? 'Home' : 'Login / Register'}
-      </Link>
-      {/* Show the link to the info page and the logout button if the user is logged in */}
-      {props.user.id && (
-        <>
-          <Link className="nav-link" to="/info">
-            Info Page
-          </Link>
-          <Link className="nav-link" to="/menu">
-            Menu
-          </Link>
-          <LogOutButton className="nav-link" />
-        </>
-      )}
-      {/* Always show this link since the about page is not protected */}
-      {props.user.is_admin &&(
-        <Link className="nav-link" to="/admin">Admin</Link>
-      )}
-      <Link className="nav-link" to="/about">
-        About
-      </Link>
-      {props.order.orderItems.orders.length >= 1 && (<SubTotalBar />)}
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
+
+const Nav = (props) => {
+  const { classes } = props;
+  return (
+    <div className={classes.root} >
+      <AppBar position="static">
+        <Toolbar>
+          {props.sideBar.open && <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+            <Menu />
+          </IconButton>}
+          <Typography onClick={() => props.history.push('/home')} className={classes.grow} variant="h3" color="inherit" >
+            Marino's Deli
+          </Typography>
+            <NavButton color="inherit" path="/home" name={props.user.id ? 'Home' : 'Login / Register'}/>
+            {/* Show the link to the info page and the logout button if the user is logged in */}
+            {props.user.id && (
+              <>
+                {/* <NavButton color="inherit" path="/info" name="info"/> */}
+              </>
+            )}
+                 <NavButton color="inherit" path="/menu" name="menu"/>
+            {/* Always show this link since the about menu is not protected */}
+            {props.user.is_admin && (
+              <NavButton color="inherit" path="/admin" name="admin"/>
+            )}
+            {/* <NavButton path="/about" name="about"/> */}
+            {props.order.orderItems.orders.length >= 1 && (<SubTotalBar />)}
+        </Toolbar>
+      </AppBar>
     </div>
-  </div>
-);
+  )
+};
 
+
+
+Nav.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 // Instead of taking everything from state, we just want the user
 // object to determine if they are logged in
 // if they are logged in, we show them a few more links 
@@ -49,6 +79,7 @@ const Nav = (props) => (
 const mapStateToProps = state => ({
   user: state.user,
   order: state.order,
+  sideBar: state.sideBar,
 });
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps)(withStyles(styles)(withRouter(Nav)));
