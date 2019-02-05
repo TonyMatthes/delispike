@@ -11,17 +11,17 @@ import {
   from '@material-ui/core';
 
 import {
-  AddCircle,
-  RemoveCircle,
-  Edit as EditCircle,
+  AddCircleOutline,
+  RemoveCircleOutline,
+  EditOutlined as EditCircle,
 }
   from '@material-ui/icons'
 
 
 class MenuItem extends Component {
 
-  state={
-    selected:false
+  state = {
+    selected: false
   }
 
   addItemToOrder = (item) => () => {
@@ -33,9 +33,9 @@ class MenuItem extends Component {
   iconToShow = (icon) => {
     switch (icon) {
       case 'AddCircle':
-        return <AddCircle />
+        return <AddCircleOutline />
       case 'RemoveCircle':
-        return <RemoveCircle />
+        return <RemoveCircleOutline />
       case 'Edit':
         return <EditCircle />
       default: console.log('no icon')
@@ -45,18 +45,18 @@ class MenuItem extends Component {
   render() {
     return (
       <>
-      <ListItem button onClick={()=>this.setState({selected:!this.state.selected})}>
+        <ListItem button onClick={() => this.setState({ selected: !this.state.selected })}>
           <ListItemText
             primary={this.props.item.item + ' $' + this.props.item.price}
-            secondary={this.state.selected?this.props.item.description : this.props.item.description} />
-        <ListItemSecondaryAction>
-          <IconButton color="secondary" onClick={this.props.iconAction}>
-            {this.iconToShow(this.props.icon)}
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
-  <Divider/>
-  </>
+            secondary={this.state.selected ? this.props.item.description : this.props.item.description} />
+          <ListItemSecondaryAction>
+            <IconButton color="secondary" onClick={this.props.iconAction}>
+              {this.iconToShow(this.props.icon)}
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+        <Divider />
+      </>
     );
   }
 }

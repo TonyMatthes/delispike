@@ -59,11 +59,11 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
-            <ProtectedRoute
+            {this.props.user.is_admin &&(<ProtectedRoute
               exact
               path="/admin"
               component={AdminPage}
-            />
+            />)}
             <Route
               exact
               path="/menu"
@@ -92,6 +92,6 @@ class App extends Component {
   }
 }
 
-const mapReduxStateToProps = ({ order }) => ({ order })
+const mapReduxStateToProps = ({ order, user }) => ({ order, user })
 
 export default connect(mapReduxStateToProps)(App);
