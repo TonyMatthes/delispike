@@ -127,7 +127,7 @@ class MenuEditor extends Component {
         >
           <DialogContent>
             <DialogContentText>
-              Edit this item
+              Edit {this.state.contentToEdit.item}
         </DialogContentText>
             <FormGroup>
               <TextField

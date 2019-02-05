@@ -21,7 +21,7 @@ import MenuPage from '../MenuPage/MenuPage';
 import CurrentOrderPage from '../CurrentOrder/CurrentOrder';
 import ConfirmOrderPage from '../ConfirmOrderPage/ConfirmOrderPage'
 
-import './App.css';
+// import './App.css';
 
 class App extends Component {
   componentDidMount() {
@@ -64,7 +64,7 @@ class App extends Component {
               path="/admin"
               component={AdminPage}
             />
-            <ProtectedRoute
+            <Route
               exact
               path="/menu"
               component={MenuPage}

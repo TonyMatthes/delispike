@@ -7,8 +7,23 @@ import logger from 'redux-logger';
 
 import rootReducer from './redux/reducers'; // imports ./redux/reducers/index.js
 import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline'
 import App from './components/App/App';
+
+const theme = createMuiTheme({
+  palette: {
+      primary: {
+          main: 'rgb(140, 0, 0)',
+      },
+      secondary: {
+          main: 'rgb(0,140,0)',
+      },
+  },
+  typography: {
+      useNextVariants: true,
+    },
+});
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -33,7 +48,7 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider theme={theme}><CssBaseline><App /></CssBaseline></MuiThemeProvider>
   </Provider>,
   document.getElementById('react-root'),
 );

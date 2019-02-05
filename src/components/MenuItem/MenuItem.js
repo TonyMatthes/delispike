@@ -6,18 +6,23 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
+  Divider
 }
   from '@material-ui/core';
 
 import {
   AddCircle,
   RemoveCircle,
-  Edit,
+  Edit as EditCircle,
 }
   from '@material-ui/icons'
 
 
 class MenuItem extends Component {
+
+  state={
+    selected:false
+  }
 
   addItemToOrder = (item) => () => {
     this.props.dispatch({ type: 'ADD_ORDER_ITEM', payload: { ...item, orderSpecificId: this.props.state.order.orderItems.key } })
@@ -32,23 +37,26 @@ class MenuItem extends Component {
       case 'RemoveCircle':
         return <RemoveCircle />
       case 'Edit':
-        return <Edit />
+        return <EditCircle />
       default: console.log('no icon')
         break;
     }
   }
   render() {
     return (
-      <ListItem>
-        <ListItemText
-          primary={this.props.item.item + ' $' + this.props.item.price}
-          secondary={this.props.item.description} />
+      <>
+      <ListItem button onClick={()=>this.setState({selected:!this.state.selected})}>
+          <ListItemText
+            primary={this.props.item.item + ' $' + this.props.item.price}
+            secondary={this.state.selected?this.props.item.description : this.props.item.description} />
         <ListItemSecondaryAction>
-          <IconButton onClick={this.props.iconAction}>
+          <IconButton color="secondary" onClick={this.props.iconAction}>
             {this.iconToShow(this.props.icon)}
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
+  <Divider/>
+  </>
     );
   }
 }
