@@ -43,7 +43,7 @@ const Nav = (props) => {
           {props.sideBar.open && <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <Menu />
           </IconButton>}
-          <Typography onClick={() => props.history.push('/home')} className={classes.grow} variant="h3" color="inherit" >
+          <Typography onClick={() => props.history.push('/home')} className={classes.grow} variant="h4" color="inherit" >
             Marino's Deli
           </Typography>
             <NavButton color="inherit" path="/home" name={props.user.id ? 'Home' : 'Login / Register'}/>
